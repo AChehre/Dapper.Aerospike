@@ -5,7 +5,8 @@
 
 # Dapper.Aerospike
 [![NuGet](https://img.shields.io/nuget/v/Dapper.Aerospike.svg)](https://www.nuget.org/packages/Dapper.Aerospike)
-Aerospike fluent mapper
+
+Aerospike fluent mapper that brings type safety.
 
 ## Installation
 Available for [.NET Standard 2.0+](https://docs.microsoft.com/en-gb/dotnet/standard/net-standard)
