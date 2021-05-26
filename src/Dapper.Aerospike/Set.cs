@@ -15,13 +15,21 @@ namespace Dapper.Aerospike
 
         private AerospikeKey<TEntity> _aerospikeKey;
 
+
         private Func<Record, Dictionary<string, AerospikeProperty<TEntity>>, TEntity> _valueBuilder;
+
+        public Set(IAsyncClient client, string @namespace, string set = null) : this(@namespace,set)
+        {
+            Client = client;
+        }
 
         public Set(string @namespace, string set = null)
         {
             SetNamespace(@namespace);
             SetSetName(set);
         }
+
+        public IAsyncClient Client { get; private set; }
 
 
         public AerospikeKey<TEntity> AerospikeKey
