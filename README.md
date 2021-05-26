@@ -13,7 +13,7 @@ Available for [.NET Standard 2.0+](https://docs.microsoft.com/en-gb/dotnet/stand
 
 ### NuGet
 ```
-PM> Install-Package Dapper.Aerospike -Version 0.0.0-alpha.0.1
+PM> Install-Package Dapper.Aerospike -Version 0.0.0-alpha.0.3
 ```
 
 ### How to use
