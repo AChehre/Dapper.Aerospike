@@ -17,24 +17,30 @@ PM> Install-Package Dapper.Aerospike -Version 0.0.0-alpha.0.1
 ```
 
 ### How to use
-Set property bin builder
-```C#
-prop.SetBinBuilder((o, p) => new Bin(p.BinName, o.Id));
-```
-Get bins
-```C#
-AerospikeEntityTypeBuilder<Order> set = new AerospikeEntityTypeBuilder<Order>();
-set.Property(o => o.Id).SetBinBuilder((o, p) => new Bin(p.BinName, o.Id));
-Bin[] bins = set.GetBins(order);
-```
 Get bins name
 ```C#
-var set = new AerospikeEntityTypeBuilder<Order>();
+var set = new Set<Order>("namespace");
           set.Property(p => p.Id);
           set.Property(p => p.Number);
 var bins = set.GetBinNames();
 ```
-Set property value builder
+Get bins
+```C#
+Set<Order> set = new Set<Order>("namespace");
+          set.Property(o => o.Id);
+Bin[] bins = set.GetBins(order);
+```
+Set custom bin builder
+```C#
+prop.SetBinBuilder((o, p) => new Bin(p.BinName, o.Id));
+```
+Set custom value builder
 ```C#
 prop.SetValueBuilder((r, p) => r.GetLong(p.BinName));
+```
+Set key property
+```C#
+var set = new Set<Order>("namespace");
+          set.KeyProperty(p => p.Id);
+Key key = set.Key;
 ```
