@@ -28,7 +28,7 @@ var bins = set.GetBinNames();
 ```
 Get bins
 ```C#
-Set<Order> set = new Set<Order>("namespace");
+var set = new Set<Order>("namespace");
           set.Property(o => o.Id);
 Bin[] bins = set.GetBins(order);
 ```
