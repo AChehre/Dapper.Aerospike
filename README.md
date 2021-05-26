@@ -44,5 +44,5 @@ Set key property
 ```C#
 var set = new Set<Order>("namespace");
           set.KeyProperty(p => p.Id);
-Key key = set.Key;
+Key key = set.Key(new Order());
 ```
