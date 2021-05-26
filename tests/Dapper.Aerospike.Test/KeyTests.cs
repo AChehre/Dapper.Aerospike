@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Aerospike.Client;
+﻿using Aerospike.Client;
 using FluentAssertions;
 using Xunit;
 
@@ -12,15 +7,29 @@ namespace Dapper.Aerospike.Test
     public class KeyTests
     {
         [Fact]
-        public void _should_return_empty_list_when_not_any_property_added()
+        public void KeyProperty_should_create_key_in_set()
         {
-            var order = Order.CreateOrderWithDefaultValue();
-            Set<Order> set = new Set<Order>();
+            Set<Order> set = OrderSetHelper.CreateOrderSet();
 
-            Bin[] bins = set.GetBins(order);
+            AerospikeProperty<Order> prop = set.KeyProperty(p => p.Id);
+
+            set.AerospikeKey.Should().NotBeNull();
+        }
+       
 
 
-            bins.Should().BeNullOrEmpty();
+        [Fact]
+        public void Key_should_create_key_()
+        {
+            Set<Order> set = OrderSetHelper.CreateOrderSet();
+            Order order = Order.CreateOrderWithDefaultValue();
+
+            AerospikeProperty<Order> prop = set.KeyProperty(p => p.Id);
+
+            Key key = set.Key(order);
+
+            Key expectedKey = new Key(set.Namespace, set.SetName, order.Id);
+            key.Should().BeEquivalentTo(expectedKey);
         }
     }
 }

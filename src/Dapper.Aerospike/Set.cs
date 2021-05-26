@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Aerospike.Client;
+using AtEase.Extensions;
 using AtEase.Extensions.Collections;
 
 namespace Dapper.Aerospike
@@ -12,16 +13,34 @@ namespace Dapper.Aerospike
         private readonly Dictionary<string, AerospikeProperty<TEntity>> _propertiesMap =
             new Dictionary<string, AerospikeProperty<TEntity>>();
 
+        private AerospikeKey<TEntity> _aerospikeKey;
+
         private Func<Record, Dictionary<string, AerospikeProperty<TEntity>>, TEntity> _valueBuilder;
 
-
-        public Set(string set = null)
+        public Set(string @namespace, string set = null)
         {
+            SetNamespace(@namespace);
             SetSetName(set);
         }
 
 
+        public AerospikeKey<TEntity> AerospikeKey
+        {
+            get => _aerospikeKey;
+            private set
+            {
+                if (_aerospikeKey.IsNotNull())
+                {
+                    throw new Exception("Key already defined");
+                }
+
+                _aerospikeKey = value;
+            }
+        }
+
+
         public string SetName { get; private set; }
+        public string Namespace { get; private set; }
 
 
         public Set<TEntity> SetValueBuilder(
@@ -53,11 +72,16 @@ namespace Dapper.Aerospike
             return _valueBuilder.Invoke(record, _propertiesMap);
         }
 
+        private void SetNamespace(string @namespace)
+        {
+            Namespace = @namespace;
+        }
+
+
         private void SetSetName(string set)
         {
             SetName = set;
         }
-
 
         public AerospikeProperty[] GetProperties()
         {
@@ -76,19 +100,41 @@ namespace Dapper.Aerospike
             return Property(property, bin);
         }
 
+        public AerospikeProperty<TEntity> KeyProperty<TProperty>(Expression<Func<TEntity, TProperty>> property)
+        {
+            var bin = property.GetPropertyName();
+            return KeyProperty(property, bin);
+        }
+
         public AerospikeProperty<TEntity> Property<TProperty>(
         Expression<Func<TEntity, TProperty>> property,
         string bin)
         {
+            var propertyInfo = property.GetPropertyInfo();
             var propertyName = property.GetPropertyName();
 
             var aerospikeProperty = new AerospikeProperty<TEntity>();
-            aerospikeProperty.SetPropertyName(propertyName).SetType(typeof(TProperty)).SetBinName(bin);
+            aerospikeProperty.SetPropertyName(propertyName)
+                             .SetType(typeof(TProperty))
+                             .SetBinName(bin)
+                             .SetPropertyInfo(propertyInfo);
             _propertiesMap[propertyName] = aerospikeProperty;
 
 
             return aerospikeProperty;
         }
+
+        public AerospikeProperty<TEntity> KeyProperty<TProperty>(
+        Expression<Func<TEntity, TProperty>> property,
+        string bin)
+        {
+            var prop = Property(property, bin);
+            AerospikeKey = new AerospikeKey<TEntity>(Namespace, SetName, prop);
+
+
+            return prop;
+        }
+
 
         public AerospikeProperty GetProperty<TReturn>(Expression<Func<TEntity, TReturn>> property)
         {

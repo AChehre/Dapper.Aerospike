@@ -11,11 +11,13 @@ namespace Dapper.Aerospike.Test
             {
                 Id = 1,
                 Number = "1",
-                Time = DateTime.Now
+                Time = DateTime.Now,
+                PersonId = Guid.NewGuid()
             };
 
         }
 
+        public Guid PersonId { get; set; }
         public long Id { get; set; }
         public DateTime Time { get; set; }
         public string Number { get; set; }

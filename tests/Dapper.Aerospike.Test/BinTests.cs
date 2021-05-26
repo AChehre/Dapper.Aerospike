@@ -17,9 +17,9 @@ namespace Dapper.Aerospike.Test
                 {{"Id", order.Id}};
 
 
-            Set<Order> set = new Set<Order>();
+            Set<Order> set =OrderSetHelper.CreateOrderSet();
             AerospikeProperty<Order> prop = set.Property(p => p.Id);
-            AerospikeProperty<Order> @as = prop.SetValueBuilder((r, p) => r.GetLong(p.BinName));
+            AerospikeProperty<Order> @as = prop.SetBinValueBuilder((r, p) => r.GetLong(p.BinName));
 
             Record record = new Record(dic, 1, 1000000);
             long value = @as.BuildValue<long>(record);
@@ -35,9 +35,9 @@ namespace Dapper.Aerospike.Test
                 {{"Id", order.Id}};
 
 
-            Set<Order> set = new Set<Order>();
+            Set<Order> set =OrderSetHelper.CreateOrderSet();
             AerospikeProperty<Order> prop = set.Property(p => p.Id);
-            AerospikeProperty<Order> @as = prop.SetValueBuilder((r, p) => r.GetLong(p.BinName));
+            AerospikeProperty<Order> @as = prop.SetBinValueBuilder((r, p) => r.GetLong(p.BinName));
 
             Record record = new Record(dic, 1, 1000000);
             long value = @as.BuildValue<long>(record);
@@ -50,7 +50,7 @@ namespace Dapper.Aerospike.Test
         {
             Order order = Order.CreateOrderWithDefaultValue();
 
-            Set<Order> set = new Set<Order>();
+            Set<Order> set =OrderSetHelper.CreateOrderSet();
             AerospikeProperty<Order> prop = set.Property(p => p.Id);
             AerospikeProperty<Order> @as = prop.SetBinBuilder((o, p) => new Bin(p.BinName, o.Id));
 

@@ -9,7 +9,7 @@ namespace Dapper.Aerospike.Test
         [Fact]
         public void GetBins_should_return_array_of_bin()
         {
-            var set = new Set<Order>();
+            var set =OrderSetHelper.CreateOrderSet();
             set.Property(p => p.Id);
             set.Property(p => p.Number);
 
@@ -31,7 +31,7 @@ namespace Dapper.Aerospike.Test
         [Fact]
         public void GetBinNames_with_property_as_func_parameter_should_return_array_of_properties_bin()
         {
-            var set = new Set<Order>();
+            var set =OrderSetHelper.CreateOrderSet();
             set.Property(p => p.Id);
             set.Property(p => p.Number);
 
@@ -52,7 +52,7 @@ namespace Dapper.Aerospike.Test
         [Fact]
         public void GetBinNames_with_property_should_return_array_of_properties_bin()
         {
-            var set = new Set<Order>();
+            var set =OrderSetHelper.CreateOrderSet();
             set.Property(p => p.Id);
             set.Property(p => p.Number);
 
@@ -74,7 +74,7 @@ namespace Dapper.Aerospike.Test
         [Fact]
         public void GetBins_with_property_should_return_array_of_properties_bin()
         {
-            var set = new Set<Order>();
+            var set =OrderSetHelper.CreateOrderSet();
             set.Property(p => p.Id);
             set.Property(p => p.Number);
 
@@ -97,7 +97,7 @@ namespace Dapper.Aerospike.Test
         [Fact]
         public void GetProperty_when_bin_name_not_provided_should_return_property_name()
         {
-            var set = new Set<Order>();
+            var set =OrderSetHelper.CreateOrderSet();
             set.Property(p => p.Id);
 
 
@@ -113,7 +113,7 @@ namespace Dapper.Aerospike.Test
         public void GetPropertyMapTest()
         {
             var bin = "id";
-            var set = new Set<Order>();
+            var set =OrderSetHelper.CreateOrderSet();
             set.Property(p => p.Id, bin);
 
 

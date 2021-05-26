@@ -1,10 +1,18 @@
 ﻿using System;
 using System.Linq.Expressions;
+using System.Reflection;
 
 namespace Dapper.Aerospike
 {
     public static class ExpressionExtensions
     {
+
+        public static PropertyInfo GetPropertyInfo<TEntity, TReturn>(this Expression<Func<TEntity, TReturn>> property)
+        {
+            var expr = (MemberExpression)property.Body;
+            var propertyInfo = (PropertyInfo)expr.Member;
+            return propertyInfo;
+        }
         public static string GetPropertyName<TEntity, TReturn>(this Expression<Func<TEntity, TReturn>> property)
         {
             var expr = property.Body as MemberExpression;
