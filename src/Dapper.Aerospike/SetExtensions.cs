@@ -4,9 +4,9 @@ using System.Linq.Expressions;
 
 namespace Dapper.Aerospike
 {
-    public static class EntityTypeBuilderExtensions
+    public static class SetExtensions
     {
-        public static string[] GetBinNames<TEntity>(this AerospikeEntityTypeBuilder<TEntity> aerospikeEntity,
+        public static string[] GetBinNames<TEntity>(this Set<TEntity> aerospikeEntity,
                                                     params Expression<Func<TEntity, object>>[] properties)
         {
             var propertyNames = properties.Select(p => p.GetPropertyName()).ToArray();
@@ -14,7 +14,7 @@ namespace Dapper.Aerospike
         }
 
         public static AerospikeProperty[] GetProperties<TEntity>(
-        this AerospikeEntityTypeBuilder<TEntity> aerospikeEntity,
+        this Set<TEntity> aerospikeEntity,
         params Expression<Func<TEntity, object>>[] properties)
         {
             var propertyNames = properties.Select(p => p.GetPropertyName()).ToArray();

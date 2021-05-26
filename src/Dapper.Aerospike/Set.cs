@@ -7,18 +7,29 @@ using AtEase.Extensions.Collections;
 
 namespace Dapper.Aerospike
 {
-    public sealed class AerospikeEntityTypeBuilder<TEntity>
+    public sealed class Set<TEntity>
     {
         private readonly Dictionary<string, AerospikeProperty<TEntity>> _propertiesMap =
             new Dictionary<string, AerospikeProperty<TEntity>>();
 
-        public AerospikeEntityTypeBuilder(string set = null)
+        private Func<Record, Dictionary<string, AerospikeProperty<TEntity>>, TEntity> _valueBuilder;
+
+
+        public Set(string set = null)
         {
-            SetSet(set);
+            SetSetName(set);
         }
 
 
-        public string Set { get; private set; }
+        public string SetName { get; private set; }
+
+
+        public Set<TEntity> SetValueBuilder(
+        Func<Record, Dictionary<string, AerospikeProperty<TEntity>>, TEntity> valueBuilder)
+        {
+            _valueBuilder = valueBuilder;
+            return this;
+        }
 
         public string[] GetBinNames(params string[] properties)
         {
@@ -37,10 +48,14 @@ namespace Dapper.Aerospike
                 : _propertiesMap.Values.Select(p => p.BuildBin(entity)).ToArray();
         }
 
-
-        private void SetSet(string set)
+        public TEntity ToEntity(Record record)
         {
-            Set = set;
+            return _valueBuilder.Invoke(record, _propertiesMap);
+        }
+
+        private void SetSetName(string set)
+        {
+            SetName = set;
         }
 
 
@@ -86,10 +101,10 @@ namespace Dapper.Aerospike
             return _propertiesMap[property];
         }
 
-        public AerospikeEntityTypeBuilder<TEntity> SetNameAsEntity()
+        public Set<TEntity> SetNameAsEntity()
         {
             var set = typeof(TEntity).Name;
-            SetSet(set);
+            SetSetName(set);
             return this;
         }
     }

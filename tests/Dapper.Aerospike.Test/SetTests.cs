@@ -9,31 +9,31 @@ namespace Dapper.Aerospike.Test
         [Fact]
         public void Set_name_should_be_null_when_name_is_not_provided()
         {
-            AerospikeEntityTypeBuilder<Order> set = new AerospikeEntityTypeBuilder<Order>();
-            set.Set.Should().BeNull();
+            Set<Order> set = new Set<Order>();
+            set.SetName.Should().BeNull();
         }
 
         [Fact]
         public void Set_name_should_be_provided_when_name_is_provided()
         {
             string setName = "order";
-            AerospikeEntityTypeBuilder<Order> set = new AerospikeEntityTypeBuilder<Order>(setName);
-            set.Set.Should().Be(setName);
+            Set<Order> set = new Set<Order>(setName);
+            set.SetName.Should().Be(setName);
         }
 
         [Fact]
         public void Set_name_should_be_provided_when_SetNameAsEntity_called()
         {
-            AerospikeEntityTypeBuilder<Order> set = new AerospikeEntityTypeBuilder<Order>().SetNameAsEntity();
+            Set<Order> set = new Set<Order>().SetNameAsEntity();
             string expectedSet = nameof(Order);
-            set.Set.Should().Be(expectedSet);
+            set.SetName.Should().Be(expectedSet);
         }
 
         [Fact]
         public void GetBins_should_return_empty_list_when_not_any_property_added()
         {
             var order = Order.CreateOrderWithDefaultValue();
-            AerospikeEntityTypeBuilder<Order> set = new AerospikeEntityTypeBuilder<Order>();
+            Set<Order> set = new Set<Order>();
 
             Bin[] bins = set.GetBins(order);
 
@@ -45,7 +45,7 @@ namespace Dapper.Aerospike.Test
         public void GetBins_should_return_list_of_bins_when_property_added()
         {
             var order = Order.CreateOrderWithDefaultValue();
-            AerospikeEntityTypeBuilder<Order> set = new AerospikeEntityTypeBuilder<Order>();
+            Set<Order> set = new Set<Order>();
             set.Property(o => o.Id).SetBinBuilder((o, p) => new Bin(p.BinName, o.Id));
 
             Bin[] bins2 = set.GetBins(order);
