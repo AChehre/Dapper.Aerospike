@@ -23,8 +23,8 @@ Add to database
 ```C#
 // define set
 var set = new Set<Order>(client,"namespace");
-          set.KeyProperty(p => p.Id);
-          set.Property(p => p.Number);
+set.KeyProperty(p => p.Id);
+set.Property(p => p.Number);
           
 // add to database           
 set.Add(order, cancellationToken);
@@ -34,9 +34,9 @@ Get from database
 ```C#
 // define set
 var set = new Set<Order>(client,"namespace");
-          set.KeyProperty(p => p.Id);
-          set.Property(p => p.Number);
-          set.SetValueBuilder((record, properties) =>
+set.KeyProperty(p => p.Id);
+set.Property(p => p.Number);
+set.SetValueBuilder((record, properties) =>
           {
               return new Order()
               {
@@ -53,14 +53,16 @@ Order order = set.Get(orderId, cancellationToken);
 Get bins name
 ```C#
 var set = new Set<Order>("namespace");
-          set.Property(p => p.Id);
-          set.Property(p => p.Number);
+set.Property(p => p.Id);
+set.Property(p => p.Number);
+          
 var bins = set.GetBinNames();
 ```
 Get bins
 ```C#
 var set = new Set<Order>("namespace");
-          set.Property(o => o.Id);
+set.Property(o => o.Id);
+
 Bin[] bins = set.GetBins(order);
 ```
 Set custom bin builder
@@ -74,6 +76,7 @@ prop.SetValueBuilder((r, p) => r.GetLong(p.BinName));
 Set key property
 ```C#
 var set = new Set<Order>("namespace");
-          set.KeyProperty(p => p.Id);
+set.KeyProperty(p => p.Id);
+
 Key key = set.Key(orderId);
 ```
