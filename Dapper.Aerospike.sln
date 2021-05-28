@@ -7,9 +7,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FC59543C-453
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{595C4113-0BF9-4A33-A716-5C3D579FBB25}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapper.Aerospike", "src\Dapper.Aerospike\Dapper.Aerospike.csproj", "{26E01FEF-0079-48F0-9930-ABCF2F5B50D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dapper.Aerospike", "src\Dapper.Aerospike\Dapper.Aerospike.csproj", "{26E01FEF-0079-48F0-9930-ABCF2F5B50D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapper.Aerospike.Test", "tests\Dapper.Aerospike.Test\Dapper.Aerospike.Test.csproj", "{8357037E-8A83-4A6D-94A9-ACAFBD1BA9BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dapper.Aerospike.Test", "tests\Dapper.Aerospike.Test\Dapper.Aerospike.Test.csproj", "{8357037E-8A83-4A6D-94A9-ACAFBD1BA9BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapper.Aerospike.Client.Test", "tests\Dapper.Aerospike.Client.Test\Dapper.Aerospike.Client.Test.csproj", "{085AF381-5F6E-4C45-B542-80DC729E4E63}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +27,10 @@ Global
 		{8357037E-8A83-4A6D-94A9-ACAFBD1BA9BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8357037E-8A83-4A6D-94A9-ACAFBD1BA9BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8357037E-8A83-4A6D-94A9-ACAFBD1BA9BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{085AF381-5F6E-4C45-B542-80DC729E4E63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{085AF381-5F6E-4C45-B542-80DC729E4E63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{085AF381-5F6E-4C45-B542-80DC729E4E63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{085AF381-5F6E-4C45-B542-80DC729E4E63}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +38,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{26E01FEF-0079-48F0-9930-ABCF2F5B50D8} = {FC59543C-4538-48D0-8BB1-676D3E080819}
 		{8357037E-8A83-4A6D-94A9-ACAFBD1BA9BF} = {595C4113-0BF9-4A33-A716-5C3D579FBB25}
+		{085AF381-5F6E-4C45-B542-80DC729E4E63} = {595C4113-0BF9-4A33-A716-5C3D579FBB25}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {97B09257-32AE-4307-90F0-87B36A5AA3AE}

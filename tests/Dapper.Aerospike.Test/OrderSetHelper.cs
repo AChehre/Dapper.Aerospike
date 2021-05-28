@@ -2,7 +2,7 @@
 {
     public static class OrderSetHelper
     {
-        public const string Namespace = "namespace";
+        public const string Namespace = "test";
 
         public static Set<Order> CreateOrderSet()
         {

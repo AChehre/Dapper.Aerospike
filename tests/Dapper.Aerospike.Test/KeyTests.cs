@@ -28,7 +28,7 @@ namespace Dapper.Aerospike.Test
 
             Key key = set.Key(order);
 
-            Key expectedKey = new Key(set.Namespace, set.SetName, order.Id);
+            Key expectedKey = new Key(set.Namespace, set.Name, order.Id);
             key.Should().BeEquivalentTo(expectedKey);
         }
     }

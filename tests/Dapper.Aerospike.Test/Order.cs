@@ -1,4 +1,5 @@
 ﻿using System;
+using AtEase.Extensions.Numbers;
 
 namespace Dapper.Aerospike.Test
 {
@@ -9,7 +10,7 @@ namespace Dapper.Aerospike.Test
         {
             return new Order()
             {
-                Id = 1,
+                Id = LongExtensions.NextRandom(),
                 Number = "1",
                 Time = DateTime.Now,
                 PersonId = Guid.NewGuid()

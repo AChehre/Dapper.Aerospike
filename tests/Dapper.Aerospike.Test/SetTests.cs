@@ -18,7 +18,7 @@ namespace Dapper.Aerospike.Test
         public void Set_name_should_be_null_when_name_is_not_provided()
         {
             Set<Order> set = OrderSetHelper.CreateOrderSet();
-            set.SetName.Should().BeNull();
+            set.Name.Should().BeNull();
         }
 
         [Fact]
@@ -26,7 +26,7 @@ namespace Dapper.Aerospike.Test
         {
             string setName = "order";
             Set<Order> set = new Set<Order>("namespace", setName);
-            set.SetName.Should().Be(setName);
+            set.Name.Should().Be(setName);
         }
 
         [Fact]
@@ -34,7 +34,7 @@ namespace Dapper.Aerospike.Test
         {
             Set<Order> set = OrderSetHelper.CreateOrderSet().SetNameAsEntity();
             string expectedSet = nameof(Order);
-            set.SetName.Should().Be(expectedSet);
+            set.Name.Should().Be(expectedSet);
         }
 
         [Fact]

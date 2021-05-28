@@ -47,7 +47,7 @@ namespace Dapper.Aerospike
         }
 
 
-        public string SetName { get; private set; }
+        public string Name { get; private set; }
         public string Namespace { get; private set; }
 
 
@@ -88,7 +88,7 @@ namespace Dapper.Aerospike
 
         private void SetSetName(string set)
         {
-            SetName = set;
+            Name = set;
         }
 
         public AerospikeProperty[] GetProperties()
@@ -137,7 +137,7 @@ namespace Dapper.Aerospike
         string bin)
         {
             var prop = Property(property, bin);
-            AerospikeKey = new AerospikeKey<TEntity>(Namespace, SetName, prop);
+            AerospikeKey = new AerospikeKey<TEntity>(Namespace, Name, prop);
 
 
             return prop;

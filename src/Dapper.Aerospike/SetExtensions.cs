@@ -9,7 +9,7 @@ namespace Dapper.Aerospike
     {
         public static Key Key<TEntity>(this Set<TEntity> aerospikeEntity, TEntity entity)
         {
-          return aerospikeEntity.AerospikeKey.GetKey(entity);
+            return aerospikeEntity.AerospikeKey.GetKey(entity);
         }
 
         public static string[] GetBinNames<TEntity>(this Set<TEntity> aerospikeEntity,
