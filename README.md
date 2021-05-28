@@ -23,7 +23,7 @@ Add to database
 ```C#
 // define set
 var set = new Set<Order>(client,"namespace");
-          set.Property(p => p.Id);
+          set.KeyProperty(p => p.Id);
           set.Property(p => p.Number);
           
 // add to database           
@@ -34,16 +34,14 @@ Get from database
 ```C#
 // define set
 var set = new Set<Order>(client,"namespace");
-          set.Property(p => p.Id);
+          set.KeyProperty(p => p.Id);
           set.Property(p => p.Number);
           set.SetValueBuilder((record, properties) =>
           {
-              var id = record.GetLong(properties[nameof(Order.Id)].PropertyName);
-              var number = record.GetString(properties[nameof(Order.Number)].PropertyName);
-              return new Order
+              return new Order()
               {
-                  Id = id,
-                  Number = number,
+                  Id = record.GetLong(properties[nameof(Order.Id)].PropertyName),
+                  Number = record.GetString(properties[nameof(Order.Number)].PropertyName)
               };
           });
 
