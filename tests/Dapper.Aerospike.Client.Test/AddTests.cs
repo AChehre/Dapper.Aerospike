@@ -7,11 +7,11 @@ using Xunit;
 
 namespace Dapper.Aerospike.Client.Test
 {
-    public class AsyncClientAddTests : IClassFixture<AerospikeFixture>
+    public class AddTests : IClassFixture<AerospikeFixture>
     {
         private readonly IAsyncClient _client;
 
-        public AsyncClientAddTests(AerospikeFixture fixture)
+        public AddTests(AerospikeFixture fixture)
         {
             _client = fixture.Client;
         }
