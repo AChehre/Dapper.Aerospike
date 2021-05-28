@@ -15,10 +15,43 @@ Available for [.NET Standard 2.0+](https://docs.microsoft.com/en-gb/dotnet/stand
 
 ### NuGet
 ```
-PM> Install-Package Dapper.Aerospike -Version 0.0.0-alpha.0.3
+PM> Install-Package Dapper.Aerospike -Version 0.0.0-alpha.0.9
 ```
 
 ### How to use
+Add to database
+```C#
+// define set
+var set = new Set<Order>(client,"namespace");
+          set.Property(p => p.Id);
+          set.Property(p => p.Number);
+          
+// add to database           
+set.Add(order, cancellationToken);
+```
+
+Get from database
+```C#
+// define set
+var set = new Set<Order>(client,"namespace");
+          set.Property(p => p.Id);
+          set.Property(p => p.Number);
+          set.SetValueBuilder((record, properties) =>
+          {
+              var id = record.GetLong(properties[nameof(Order.Id)].PropertyName);
+              var number = record.GetString(properties[nameof(Order.Number)].PropertyName);
+              return new Order
+              {
+                  Id = id,
+                  Number = number,
+              };
+          });
+
+// get from database
+Order order = set.Get(orderId, cancellationToken);        
+```
+
+
 Get bins name
 ```C#
 var set = new Set<Order>("namespace");
@@ -44,5 +77,5 @@ Set key property
 ```C#
 var set = new Set<Order>("namespace");
           set.KeyProperty(p => p.Id);
-Key key = set.Key(new Order());
+Key key = set.Key(orderId);
 ```
