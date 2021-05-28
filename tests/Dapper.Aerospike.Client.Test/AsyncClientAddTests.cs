@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Aerospike.Client;
 using Dapper.Aerospike.Test;
@@ -8,27 +7,11 @@ using Xunit;
 
 namespace Dapper.Aerospike.Client.Test
 {
-    public class AerospikeFixture : IDisposable
-    {
-        public AerospikeFixture()
-        {
-            Client = new AsyncClient("127.0.0.2", 3000);
-            Client.Truncate(new InfoPolicy(), OrderSetHelper.Namespace, nameof(Order), null);
-        }
-
-        public IAsyncClient Client { get; }
-
-        public void Dispose()
-        {
-            // clean up 
-        }
-    }
-
-    public class AsyncClientTests : IClassFixture<AerospikeFixture>
+    public class AsyncClientAddTests : IClassFixture<AerospikeFixture>
     {
         private readonly IAsyncClient _client;
 
-        public AsyncClientTests(AerospikeFixture fixture)
+        public AsyncClientAddTests(AerospikeFixture fixture)
         {
             _client = fixture.Client;
         }

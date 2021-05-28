@@ -10,7 +10,7 @@ namespace Dapper.Aerospike
 {
     public sealed class Set<TEntity>
     {
-        private readonly Dictionary<string, AerospikeProperty<TEntity>> _propertiesMap =
+        private readonly Dictionary<string, AerospikeProperty<TEntity>> _propertiesMapByPropertyName =
             new Dictionary<string, AerospikeProperty<TEntity>>();
 
         private AerospikeKey<TEntity> _aerospikeKey;
@@ -18,7 +18,7 @@ namespace Dapper.Aerospike
 
         private Func<Record, Dictionary<string, AerospikeProperty<TEntity>>, TEntity> _valueBuilder;
 
-        public Set(IAsyncClient client, string @namespace, string set = null) : this(@namespace,set)
+        public Set(IAsyncClient client, string @namespace, string set = null) : this(@namespace, set)
         {
             Client = client;
         }
@@ -29,7 +29,7 @@ namespace Dapper.Aerospike
             SetSetName(set);
         }
 
-        public IAsyncClient Client { get; private set; }
+        public IAsyncClient Client { get; }
 
 
         public AerospikeKey<TEntity> AerospikeKey
@@ -60,24 +60,24 @@ namespace Dapper.Aerospike
 
         public string[] GetBinNames(params string[] properties)
         {
-            return properties.Select(p => _propertiesMap[p].BinName).ToArray();
+            return properties.Select(p => _propertiesMapByPropertyName[p].BinName).ToArray();
         }
 
         public string[] GetBinNames()
         {
-            return _propertiesMap.Select(a => a.Value.BinName).ToArray();
+            return _propertiesMapByPropertyName.Select(a => a.Value.BinName).ToArray();
         }
 
         public Bin[] GetBins(TEntity entity)
         {
-            return _propertiesMap.IsNullOrEmpty()
+            return _propertiesMapByPropertyName.IsNullOrEmpty()
                 ? null
-                : _propertiesMap.Values.Select(p => p.BuildBin(entity)).ToArray();
+                : _propertiesMapByPropertyName.Values.Select(p => p.BuildBin(entity)).ToArray();
         }
 
         public TEntity ToEntity(Record record)
         {
-            return _valueBuilder.Invoke(record, _propertiesMap);
+            return _valueBuilder.Invoke(record, _propertiesMapByPropertyName);
         }
 
         private void SetNamespace(string @namespace)
@@ -91,14 +91,19 @@ namespace Dapper.Aerospike
             Name = set;
         }
 
+        public TEntity GetEntity(Record record)
+        {
+            return _valueBuilder.Invoke(record, _propertiesMapByPropertyName);
+        }
+
         public AerospikeProperty[] GetProperties()
         {
-            return _propertiesMap.Values.ToArray();
+            return _propertiesMapByPropertyName.Values.ToArray();
         }
 
         public AerospikeProperty[] GetProperties(string[] propertyNames)
         {
-            return propertyNames.Select(pn => _propertiesMap[pn]).ToArray();
+            return propertyNames.Select(pn => _propertiesMapByPropertyName[pn]).ToArray();
         }
 
 
@@ -126,7 +131,7 @@ namespace Dapper.Aerospike
                              .SetType(typeof(TProperty))
                              .SetBinName(bin)
                              .SetPropertyInfo(propertyInfo);
-            _propertiesMap[propertyName] = aerospikeProperty;
+            _propertiesMapByPropertyName[propertyName] = aerospikeProperty;
 
 
             return aerospikeProperty;
@@ -152,7 +157,7 @@ namespace Dapper.Aerospike
 
         public AerospikeProperty GetProperty(string property)
         {
-            return _propertiesMap[property];
+            return _propertiesMapByPropertyName[property];
         }
 
         public Set<TEntity> SetNameAsEntity()

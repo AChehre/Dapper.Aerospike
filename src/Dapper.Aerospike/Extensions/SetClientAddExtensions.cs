@@ -4,7 +4,7 @@ using Aerospike.Client;
 
 namespace Dapper.Aerospike
 {
-    public static class SetClientExtensions
+    public static class SetClientAddExtensions
     {
         public static Task Add<TEntity>(this Set<TEntity> set,
                                         TEntity entity,

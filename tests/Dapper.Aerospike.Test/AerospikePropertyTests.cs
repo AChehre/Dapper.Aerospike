@@ -18,7 +18,7 @@ namespace Dapper.Aerospike.Test
 
             Value value = property.BuildAerospikeValue(order);
 
-            Value idValue = Value.Get(order.PersonId);
+            Value idValue = Value.Get(order.PersonId.ToByteArray());
 
 
             value.Should().Be(idValue);
