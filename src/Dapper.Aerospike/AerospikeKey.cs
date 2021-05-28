@@ -1,4 +1,6 @@
-﻿using Aerospike.Client;
+﻿using System;
+using System.Reflection;
+using Aerospike.Client;
 
 namespace Dapper.Aerospike
 {
@@ -23,6 +25,21 @@ namespace Dapper.Aerospike
         }
 
 
+        public Key GetKey(Guid keyValue)
+        {
+            return new Key(_namespace, _setName, keyValue.GetAsValue());
+        }
+
+        public Key GetKey(DateTime keyValue)
+        {
+            return new Key(_namespace, _setName, keyValue.GetAsValue());
+        }
+
+        public Key GetKey(object keyValue)
+        {
+           var value = Value.Get(keyValue);
+            return new Key(_namespace, _setName, value);
+        }
         public Key GetKey(TEntity entity)
         {
             return new Key(_namespace, _setName, _property.BuildAerospikeValue(entity));

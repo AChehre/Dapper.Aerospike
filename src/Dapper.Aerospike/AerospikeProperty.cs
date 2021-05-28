@@ -34,13 +34,13 @@ namespace Dapper.Aerospike
             if (Type == typeof(Guid))
             {
                 var guidValue = PropertyInfo.GenerateGuidGetterLambda().Invoke(entity);
-                return Value.Get(guidValue.ToByteArray());
+                return guidValue.GetAsValue();
             }
 
             if (Type == typeof(DateTime))
             {
                 var dateTimeValue = PropertyInfo.GenerateDateTimeGetterLambda().Invoke(entity);
-                return Value.Get(dateTimeValue.ToString("O"));
+                return dateTimeValue.GetAsValue();
             }
 
 

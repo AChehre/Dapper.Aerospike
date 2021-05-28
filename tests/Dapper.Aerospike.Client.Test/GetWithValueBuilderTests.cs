@@ -7,11 +7,11 @@ using Xunit;
 
 namespace Dapper.Aerospike.Client.Test
 {
-    public class GetWithValueBuilderTests : IClassFixture<AerospikeFixture>
+    public class GetTests : IClassFixture<AerospikeFixture>
     {
         private readonly IAsyncClient _client;
 
-        public GetWithValueBuilderTests(AerospikeFixture fixture)
+        public GetTests(AerospikeFixture fixture)
         {
             _client = fixture.Client;
         }
@@ -82,7 +82,7 @@ namespace Dapper.Aerospike.Client.Test
 
             await set.Add(order, CancellationToken.None);
 
-            var result = set.Get(order, CancellationToken.None).Result;
+            var result = set.Get(order.Id, CancellationToken.None).Result;
 
             result.Should().BeEquivalentTo(order);
         }

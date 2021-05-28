@@ -12,6 +12,22 @@ namespace Dapper.Aerospike
             return aerospikeEntity.AerospikeKey.GetKey(entity);
         }
 
+        public static Key Key<TEntity>(this Set<TEntity> aerospikeEntity, Guid keyValue)
+        {
+            return aerospikeEntity.AerospikeKey.GetKey(keyValue);
+        }
+
+        public static Key Key<TEntity>(this Set<TEntity> aerospikeEntity, DateTime keyValue)
+        {
+            return aerospikeEntity.AerospikeKey.GetKey(keyValue);
+        }
+
+        public static Key Key<TEntity>(this Set<TEntity> aerospikeEntity, object keyValue)
+        {
+            return aerospikeEntity.AerospikeKey.GetKey(keyValue);
+        }
+
+
         public static string[] GetBinNames<TEntity>(this Set<TEntity> aerospikeEntity,
                                                     params Expression<Func<TEntity, object>>[] properties)
         {
