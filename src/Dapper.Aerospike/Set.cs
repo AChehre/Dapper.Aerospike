@@ -29,7 +29,12 @@ namespace Dapper.Aerospike
             SetSetName(set);
         }
 
-        public IAsyncClient Client { get; }
+        public IAsyncClient Client { get; private set; }
+
+        public void SetClient(IAsyncClient client)
+        {
+            Client = client;
+        }
 
 
         public AerospikeKey<TEntity> AerospikeKey

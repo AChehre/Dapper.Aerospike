@@ -17,6 +17,18 @@ namespace Dapper.Aerospike.Test
             };
 
         }
+        public static Order CreateOrderWithSecondDefaultValue()
+        {
+            return new Order()
+            {
+                Id = LongExtensions.NextRandom(),
+                Number = "2",
+                Time = DateTime.Now,
+                PersonId = Guid.NewGuid()
+            };
+
+        }
+
 
         public Guid PersonId { get; set; }
         public long Id { get; set; }
