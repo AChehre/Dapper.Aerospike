@@ -18,10 +18,10 @@
 
             set.SetValueBuilder((record, properties) =>
             {
-                var id = record.GetLong(properties[nameof(Order.Id)].PropertyName);
-                var number = record.GetString(properties[nameof(Order.Number)].PropertyName);
-                var personId = record.GetGuid(properties[nameof(Order.PersonId)].PropertyName);
-                var time = record.GetDateTime(properties[nameof(Order.Time)].PropertyName);
+                var id = record.GetLong(properties[nameof(Order.Id)].BinName);
+                var number = record.GetString(properties[nameof(Order.Number)].BinName);
+                var personId = record.GetGuid(properties[nameof(Order.PersonId)].BinName);
+                var time = record.GetDateTime(properties[nameof(Order.Time)].BinName);
                 return new Order
                 {
                     Id = id,
