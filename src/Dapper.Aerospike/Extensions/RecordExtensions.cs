@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Globalization;
-using Record = Aerospike.Client.Record;
+using Aerospike.Client;
 
 namespace Dapper.Aerospike
 {
@@ -12,12 +12,9 @@ namespace Dapper.Aerospike
             return DateTime.ParseExact(timeString, "O", CultureInfo.InvariantCulture);
         }
 
-   public static Guid GetGuid(this Record record, string binName)
+        public static Guid GetGuid(this Record record, string binName)
         {
-            return new Guid((byte[])record.GetValue(binName));
+            return new Guid((byte[]) record.GetValue(binName));
         }
-
     }
-
-
 }
