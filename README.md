@@ -40,8 +40,8 @@ set.SetValueBuilder((record, properties) =>
           {
               return new Order()
               {
-                  Id = record.GetLong(properties[nameof(Order.Id)].PropertyName),
-                  Number = record.GetString(properties[nameof(Order.Number)].PropertyName)
+                  Id = record.GetLong(properties[nameof(Order.Id)].BinName),
+                  Number = record.GetString(properties[nameof(Order.Number)].BinName)
               };
           });
 
