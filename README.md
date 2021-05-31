@@ -15,10 +15,11 @@ Available for [.NET Standard 2.0+](https://docs.microsoft.com/en-gb/dotnet/stand
 
 ### NuGet
 ```
-PM> Install-Package Dapper.Aerospike -Version 0.0.0-alpha.0.13
+PM> Install-Package Dapper.Aerospike -Version 0.0.0-alpha.0.17
 ```
 
 ### How to use
+
 Add to database
 ```C#
 // define set
@@ -47,6 +48,25 @@ set.SetValueBuilder((record, properties) =>
 
 // get from database
 Order order = set.Get(orderId, cancellationToken);        
+```
+
+Query from database
+```C#
+// define set
+var set = new Set<Order>(client,"namespace");
+set.KeyProperty(p => p.Id);
+set.Property(p => p.Number);
+set.SetValueBuilder((record, properties) =>
+          {
+              return new Order()
+              {
+                  Id = record.GetLong(properties[nameof(Order.Id)].BinName),
+                  Number = record.GetString(properties[nameof(Order.Number)].BinName)
+              };
+          });
+
+// get from database
+List<Order> orders = set.Query();        
 ```
 
 
