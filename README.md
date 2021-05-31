@@ -31,7 +31,7 @@ set.Property(p => p.Number);
 set.Add(order, cancellationToken);
 ```
 
-Get from database
+Get and query from database
 ```C#
 // define set
 var set = new Set<Order>(client,"namespace");
@@ -46,26 +46,10 @@ set.SetValueBuilder((record, properties) =>
               };
           });
 
-// get from database
-Order order = set.Get(orderId, cancellationToken);        
-```
+// Get from database
+Order order = set.Get(orderId, cancellationToken);
 
-Query from database
-```C#
-// define set
-var set = new Set<Order>(client,"namespace");
-set.KeyProperty(p => p.Id);
-set.Property(p => p.Number);
-set.SetValueBuilder((record, properties) =>
-          {
-              return new Order()
-              {
-                  Id = record.GetLong(properties[nameof(Order.Id)].BinName),
-                  Number = record.GetString(properties[nameof(Order.Number)].BinName)
-              };
-          });
-
-// get from database
+// Query all from database
 List<Order> orders = set.Query();        
 ```
 
