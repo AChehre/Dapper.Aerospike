@@ -15,27 +15,27 @@ Available for [.NET Standard 2.0+](https://docs.microsoft.com/en-gb/dotnet/stand
 
 ### NuGet
 ```
-PM> Install-Package Dapper.Aerospike -Version 0.0.0-alpha.0.13
+PM> Install-Package Dapper.Aerospike -Version 0.0.0-alpha.0.19
 ```
 
 ### How to use
-Add to database
+
+Define client
 ```C#
 // define set
-var set = new Set<Order>(client,"namespace");
+AsyncClient set = new Set<Order>(Host,Port,Namespace, optional setName);
 set.KeyProperty(p => p.Id);
 set.Property(p => p.Number);
-          
-// add to database           
+```
+
+Add to database
+```C#
 set.Add(order, cancellationToken);
 ```
 
-Get from database
+Get and query from database
 ```C#
 // define set
-var set = new Set<Order>(client,"namespace");
-set.KeyProperty(p => p.Id);
-set.Property(p => p.Number);
 set.SetValueBuilder((record, properties) =>
           {
               return new Order()
@@ -45,24 +45,20 @@ set.SetValueBuilder((record, properties) =>
               };
           });
 
-// get from database
-Order order = set.Get(orderId, cancellationToken);        
+// Get from database
+Order order = set.Get(orderId, cancellationToken);
+
+// Query all from database
+List<Order> orders = set.Query();        
 ```
 
 
 Get bins name
 ```C#
-var set = new Set<Order>("namespace");
-set.Property(p => p.Id);
-set.Property(p => p.Number);
-          
-var bins = set.GetBinNames();
+string bins = set.GetBinNames();
 ```
 Get bins
 ```C#
-var set = new Set<Order>("namespace");
-set.Property(o => o.Id);
-
 Bin[] bins = set.GetBins(order);
 ```
 Set custom bin builder
@@ -75,8 +71,8 @@ prop.SetValueBuilder((r, p) => r.GetLong(p.BinName));
 ```
 Set key property
 ```C#
-var set = new Set<Order>("namespace");
 set.KeyProperty(p => p.Id);
 
+// get key
 Key key = set.Key(orderId);
 ```
