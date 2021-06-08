@@ -5,7 +5,7 @@ using Dapper.Aerospike.Test;
 using FluentAssertions;
 using Xunit;
 
-namespace Dapper.Aerospike.Client.Test
+namespace Dapper.Aerospike.Client.Test.Set
 {
     public class GetTests : IClassFixture<AerospikeFixture>
     {
@@ -19,7 +19,7 @@ namespace Dapper.Aerospike.Client.Test
         [Fact]
         public async Task Get_should_get_entity_from_database()
         {
-            var order = Order.CreateOrderWithDefaultValue();
+            Order order = Order.CreateOrderWithDefaultValue();
 
             Set<Order> set = OrderSetHelper.CreateOrderSetWithProperties();
             set.SetClient(_client);
@@ -27,7 +27,7 @@ namespace Dapper.Aerospike.Client.Test
             await set.Add(order, CancellationToken.None);
 
 
-            var result = set.Get(new Policy(), order, CancellationToken.None).Result;
+            Order result = set.Get(new Policy(), order, CancellationToken.None).Result;
 
             result.Should().BeEquivalentTo(order);
         }
@@ -36,7 +36,7 @@ namespace Dapper.Aerospike.Client.Test
         [Fact]
         public async Task Get_with_default_policy_should_get_entity_from_database()
         {
-            var order = Order.CreateOrderWithDefaultValue();
+            Order order = Order.CreateOrderWithDefaultValue();
 
             Set<Order> set = OrderSetHelper.CreateOrderSetWithProperties();
             set.SetClient(_client);
@@ -44,7 +44,7 @@ namespace Dapper.Aerospike.Client.Test
 
             await set.Add(order, CancellationToken.None);
 
-            var result = set.Get(order.Id, CancellationToken.None).Result;
+            Order result = set.Get(order.Id, CancellationToken.None).Result;
 
             result.Should().BeEquivalentTo(order);
         }

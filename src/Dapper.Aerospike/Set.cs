@@ -8,10 +8,9 @@ using AtEase.Extensions.Collections;
 
 namespace Dapper.Aerospike
 {
-    public sealed class Set<TEntity>
-    {
-        private readonly Dictionary<string, AerospikeProperty<TEntity>> _propertiesMapByPropertyName =
-            new Dictionary<string, AerospikeProperty<TEntity>>();
+  
+    public class Set<TEntity> : ISet<TEntity>    {
+        private readonly Dictionary<string, AerospikeProperty<TEntity>> _propertiesMapByPropertyName = new();
 
         private AerospikeKey<TEntity> _aerospikeKey;
 
@@ -30,11 +29,6 @@ namespace Dapper.Aerospike
         }
 
         public IAsyncClient Client { get; private set; }
-
-        public void SetClient(IAsyncClient client)
-        {
-            Client = client;
-        }
 
 
         public AerospikeKey<TEntity> AerospikeKey
@@ -83,17 +77,6 @@ namespace Dapper.Aerospike
         public TEntity ToEntity(Record record)
         {
             return _valueBuilder.Invoke(record, _propertiesMapByPropertyName);
-        }
-
-        private void SetNamespace(string @namespace)
-        {
-            Namespace = @namespace;
-        }
-
-
-        private void SetSetName(string set)
-        {
-            Name = set;
         }
 
         public TEntity GetEntity(Record record)
@@ -170,6 +153,22 @@ namespace Dapper.Aerospike
             var set = typeof(TEntity).Name;
             SetSetName(set);
             return this;
+        }
+
+        public void SetClient(IAsyncClient client)
+        {
+            Client = client;
+        }
+
+        private void SetNamespace(string @namespace)
+        {
+            Namespace = @namespace;
+        }
+
+
+        private void SetSetName(string set)
+        {
+            Name = set;
         }
     }
 }

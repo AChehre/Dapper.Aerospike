@@ -7,7 +7,7 @@ namespace Dapper.Aerospike
 {
     public static class SetClientGetExtensions
     {
-        public static async Task<TEntity> Get<TEntity>(this Set<TEntity> set,
+        public static async Task<TEntity> Get<TEntity>(this ISet<TEntity> set,
                                                        DateTime keyValue,
                                                        CancellationToken token)
         {
@@ -15,25 +15,25 @@ namespace Dapper.Aerospike
         }
 
 
-        public static async Task<TEntity> Get<TEntity>(this Set<TEntity> set, Guid keyValue, CancellationToken token)
+        public static async Task<TEntity> Get<TEntity>(this ISet<TEntity> set, Guid keyValue, CancellationToken token)
         {
             return await set.Get(new Policy(), keyValue, token);
         }
 
 
-        public static async Task<TEntity> Get<TEntity>(this Set<TEntity> set, object keyValue, CancellationToken token)
+        public static async Task<TEntity> Get<TEntity>(this ISet<TEntity> set, object keyValue, CancellationToken token)
         {
             return await set.Get(new Policy(), keyValue, token);
         }
 
 
-        public static async Task<TEntity> Get<TEntity>(this Set<TEntity> set, TEntity entity, CancellationToken token)
+        public static async Task<TEntity> Get<TEntity>(this ISet<TEntity> set, TEntity entity, CancellationToken token)
         {
             return await set.Get(new Policy(), entity, token);
         }
 
 
-        public static async Task<TEntity> Get<TEntity>(this Set<TEntity> set,
+        public static async Task<TEntity> Get<TEntity>(this ISet<TEntity> set,
                                                        Policy policy,
                                                        TEntity entity,
                                                        CancellationToken token)
@@ -44,7 +44,7 @@ namespace Dapper.Aerospike
         }
 
 
-        public static async Task<TEntity> Get<TEntity>(this Set<TEntity> set,
+        public static async Task<TEntity> Get<TEntity>(this ISet<TEntity> set,
                                                        Policy policy,
                                                        object keyValue,
                                                        CancellationToken token)
@@ -55,7 +55,7 @@ namespace Dapper.Aerospike
         }
 
 
-        public static async Task<TEntity> Get<TEntity>(this Set<TEntity> set,
+        public static async Task<TEntity> Get<TEntity>(this ISet<TEntity> set,
                                                        Policy policy,
                                                        Guid keyValue,
                                                        CancellationToken token)
@@ -65,7 +65,7 @@ namespace Dapper.Aerospike
             return set.GetEntity(r);
         }
 
-        public static async Task<TEntity> Get<TEntity>(this Set<TEntity> set,
+        public static async Task<TEntity> Get<TEntity>(this ISet<TEntity> set,
                                                        Policy policy,
                                                        DateTime keyValue,
                                                        CancellationToken token)

@@ -3,7 +3,7 @@ using Dapper.Aerospike.Test;
 using FluentAssertions;
 using Xunit;
 
-namespace Dapper.Aerospike.Client.Test
+namespace Dapper.Aerospike.Client.Test.Set
 {
     public class SetClientTests : IClassFixture<AerospikeFixture>
     {

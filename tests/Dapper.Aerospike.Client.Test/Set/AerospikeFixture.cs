@@ -2,7 +2,7 @@
 using Aerospike.Client;
 using Dapper.Aerospike.Test;
 
-namespace Dapper.Aerospike.Client.Test
+namespace Dapper.Aerospike.Client.Test.Set
 {
     public class AerospikeFixture : IDisposable
     {

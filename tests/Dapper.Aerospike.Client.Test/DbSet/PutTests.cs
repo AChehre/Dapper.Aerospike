@@ -1,27 +1,22 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Aerospike.Client;
+using Dapper.Aerospike.Client.Test.Set;
 using Dapper.Aerospike.Test;
 using FluentAssertions;
 using Xunit;
 
-namespace Dapper.Aerospike.Client.Test
+namespace Dapper.Aerospike.Client.Test.DbSet
 {
     public class PutTests : IClassFixture<AerospikeFixture>
     {
-        private readonly IAsyncClient _client;
-
-        public PutTests(AerospikeFixture fixture)
-        {
-            _client = fixture.Client;
-        }
-
         [Fact]
         public async Task Update_should_update_entity_in_database()
         {
-            var order = Order.CreateOrderWithDefaultValue();
-            Set<Order> set = OrderSetHelper.CreateOrderSetWithProperties();
-            set.SetClient(_client);
+            Order order = Order.CreateOrderWithDefaultValue();
+            ISet<Order> set = OrderSetHelper.CreateOrderDbSetWithProperties();
+
+
             await set.Add(order, CancellationToken.None);
             Order firstOrder = set.Get(new Policy(), order, CancellationToken.None).Result;
 
@@ -42,9 +37,8 @@ namespace Dapper.Aerospike.Client.Test
         [Fact]
         public async Task Update_with_default_policy_should_update_entity_in_database()
         {
-            var order = Order.CreateOrderWithDefaultValue();
-            Set<Order> set = OrderSetHelper.CreateOrderSetWithProperties();
-            set.SetClient(_client);
+            Order order = Order.CreateOrderWithDefaultValue();
+            ISet<Order> set = OrderSetHelper.CreateOrderDbSetWithProperties();
             await set.Add(order, CancellationToken.None);
             Order firstOrder = set.Get(new Policy(), order, CancellationToken.None).Result;
 

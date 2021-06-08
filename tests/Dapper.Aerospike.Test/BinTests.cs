@@ -13,11 +13,11 @@ namespace Dapper.Aerospike.Test
         {
             Order order = Order.CreateOrderWithDefaultValue();
 
-            var dic = new Dictionary<string, object>
+            Dictionary<string, object> dic = new Dictionary<string, object>
                 {{"Id", order.Id}};
 
 
-            Set<Order> set =OrderSetHelper.CreateOrderSet();
+            Set<Order> set = OrderSetHelper.CreateOrderSet();
             AerospikeProperty<Order> prop = set.Property(p => p.Id);
             AerospikeProperty<Order> @as = prop.SetBinValueBuilder((r, p) => r.GetLong(p.BinName));
 
@@ -35,7 +35,7 @@ namespace Dapper.Aerospike.Test
                 {{"Id", order.Id}};
 
 
-            Set<Order> set =OrderSetHelper.CreateOrderSet();
+            Set<Order> set = OrderSetHelper.CreateOrderSet();
             AerospikeProperty<Order> prop = set.Property(p => p.Id);
             AerospikeProperty<Order> @as = prop.SetBinValueBuilder((r, p) => r.GetLong(p.BinName));
 
@@ -50,7 +50,7 @@ namespace Dapper.Aerospike.Test
         {
             Order order = Order.CreateOrderWithDefaultValue();
 
-            Set<Order> set =OrderSetHelper.CreateOrderSet();
+            Set<Order> set = OrderSetHelper.CreateOrderSet();
             AerospikeProperty<Order> prop = set.Property(p => p.Id);
             AerospikeProperty<Order> @as = prop.SetBinBuilder((o, p) => new Bin(p.BinName, o.Id));
 
