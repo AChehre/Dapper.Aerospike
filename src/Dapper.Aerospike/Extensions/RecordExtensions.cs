@@ -16,5 +16,10 @@ namespace Dapper.Aerospike
         {
             return new Guid((byte[]) record.GetValue(binName));
         }
+
+        public static decimal GetDecimal(this Record record, string binName)
+        {
+            return Convert.ToDecimal(record.GetValue(binName));
+        }
     }
 }
