@@ -15,15 +15,25 @@ Available for [.NET Standard 2.0+](https://docs.microsoft.com/en-gb/dotnet/stand
 
 ### NuGet
 ```
-PM> Install-Package Dapper.Aerospike -Version 0.0.0-alpha.0.19
+PM> Install-Package Dapper.Aerospike -Version 0.0.0-alpha.0.21
 ```
 
 ### How to use
 
 Define client
 ```C#
+// define DB set
+ISet set = new DbSet<Order>(Host,Port,Namespace, optional setName);
+set.KeyProperty(p => p.Id);
+set.Property(p => p.Number);
+
 // define set
-AsyncClient set = new Set<Order>(Host,Port,Namespace, optional setName);
+ISet set = new Set<Order>(Namespace, optional setName);
+set.KeyProperty(p => p.Id);
+set.Property(p => p.Number);
+
+// define set with Client
+ISet set = new Set<Order>(Client, Namespace, optional setName);
 set.KeyProperty(p => p.Id);
 set.Property(p => p.Number);
 ```
