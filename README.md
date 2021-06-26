@@ -18,6 +18,29 @@ Available for [.NET Standard 2.0+](https://docs.microsoft.com/en-gb/dotnet/stand
 PM> Install-Package Dapper.Aerospike -Version 0.0.0-alpha.0.25
 ```
 
+### Example
+```C#
+// define set with Client
+ISet set = new Set<Order>(Client, Namespace, optional setName);
+set.KeyProperty(p => p.Id);
+set.Property(p => p.Number);
+set.SetValueBuilder((record, properties) =>
+          {
+              return new Order()
+              {
+                  Id = record.GetLong(properties[nameof(Order.Id)].BinName),
+                  Number = record.GetString(properties[nameof(Order.Number)].BinName)
+              };
+          });
+
+
+// Add to  database
+set.Add(order, cancellationToken);
+
+// Get from database
+Order order = set.Get(orderId, cancellationToken);
+```
+
 ### How to use
 
 Define client
