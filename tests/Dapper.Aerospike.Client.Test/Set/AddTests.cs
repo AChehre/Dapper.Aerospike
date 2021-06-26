@@ -17,6 +17,24 @@ namespace Dapper.Aerospike.Client.Test.Set
             _client = fixture.Client;
         }
 
+
+        [Fact]
+        public async Task Add_should_add_entity_with_nullable_fields_to_database()
+        {
+            Set<NullableValue> set = NullableSetHelper.CreateSetWithProperties();
+            set.SetClient(_client);
+
+            NullableValue nullableValue = NullableValue.CreateWithDefaultValue();
+
+
+            await set.Add(nullableValue, CancellationToken.None);
+
+            NullableValue result = set.Get(nullableValue.Id, CancellationToken.None).Result;
+
+            result.Should().NotBeNull();
+            result.Should().BeEquivalentTo(nullableValue);
+        }
+
         [Fact]
         public async Task Add_should_add_entity_to_database()
         {

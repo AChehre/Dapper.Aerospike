@@ -10,7 +10,8 @@ namespace Dapper.Aerospike
                                         TEntity entity,
                                         CancellationToken token)
         {
-            return set.Client.Add(new WritePolicy(), token, set.Key(entity), set.GetBins(entity));
+            var bins = set.GetBins(entity);
+            return set.Client.Add(new WritePolicy(), token, set.Key(entity), bins);
         }
         public static Task Add<TEntity>(this ISet<TEntity> set,
                                         WritePolicy writePolicy,

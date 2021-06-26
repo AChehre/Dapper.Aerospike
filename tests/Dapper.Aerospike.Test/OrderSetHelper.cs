@@ -10,51 +10,43 @@
         {
             return new Set<Order>(Namespace);
         }
+
         public static Set<Order> CreateOrderSetWithProperties()
         {
-            var set = new Set<Order>( OrderSetHelper.Namespace).SetNameAsEntity();
+            var set = new Set<Order>(Namespace).SetNameAsEntity();
             set.KeyProperty(o => o.Id);
             set.Property(o => o.Number);
             set.Property(o => o.PersonId);
             set.Property(o => o.Time);
+            set.Property(o => o.Amount);
 
-            set.SetValueBuilder((record, properties) =>
+            set.SetValueBuilder((record, properties) => new Order
             {
-                var id = record.GetLong(properties[nameof(Order.Id)].BinName);
-                var number = record.GetString(properties[nameof(Order.Number)].BinName);
-                var personId = record.GetGuid(properties[nameof(Order.PersonId)].BinName);
-                var time = record.GetDateTime(properties[nameof(Order.Time)].BinName);
-                return new Order
-                {
-                    Id = id,
-                    Number = number,
-                    PersonId = personId,
-                    Time = time
-                };
+                Id = record.GetLong(properties[nameof(Order.Id)].BinName),
+                Number = record.GetString(properties[nameof(Order.Number)].BinName),
+                PersonId = record.GetGuid(properties[nameof(Order.PersonId)].BinName),
+                Time = record.GetDateTime(properties[nameof(Order.Time)].BinName),
+                Amount = record.GetDecimal(properties[nameof(Order.Amount)].BinName)
             });
             return set;
         }
+
         public static ISet<Order> CreateOrderDbSetWithProperties()
         {
-            ISet<Order> set = new DbSet<Order>(Host, Port,OrderSetHelper.Namespace).SetNameAsEntity();
+            ISet<Order> set = new DbSet<Order>(Host, Port, Namespace).SetNameAsEntity();
             set.KeyProperty(o => o.Id);
             set.Property(o => o.Number);
             set.Property(o => o.PersonId);
             set.Property(o => o.Time);
+            set.Property(o => o.Amount);
 
-            set.SetValueBuilder((record, properties) =>
+            set.SetValueBuilder((record, properties) => new Order
             {
-                var id = record.GetLong(properties[nameof(Order.Id)].BinName);
-                var number = record.GetString(properties[nameof(Order.Number)].BinName);
-                var personId = record.GetGuid(properties[nameof(Order.PersonId)].BinName);
-                var time = record.GetDateTime(properties[nameof(Order.Time)].BinName);
-                return new Order
-                {
-                    Id = id,
-                    Number = number,
-                    PersonId = personId,
-                    Time = time
-                };
+                Id = record.GetLong(properties[nameof(Order.Id)].BinName),
+                Number = record.GetString(properties[nameof(Order.Number)].BinName),
+                PersonId = record.GetGuid(properties[nameof(Order.PersonId)].BinName),
+                Time = record.GetDateTime(properties[nameof(Order.Time)].BinName),
+                Amount = record.GetDecimal(properties[nameof(Order.Amount)].BinName)
             });
             return set;
         }

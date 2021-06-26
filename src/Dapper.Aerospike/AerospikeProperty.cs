@@ -29,24 +29,56 @@ namespace Dapper.Aerospike
             {
                 return _valueBuilder.Invoke(entity, this);
             }
-           
 
+
+            if (Type == typeof(decimal?))
+            {
+                var value = PropertyInfo.GenerateNullableDecimalGetterLambda().Invoke(entity);
+                return value.GetAsValue();
+            }
+
+            if (Type == typeof(decimal))
+            {
+                var value = PropertyInfo.GenerateDecimalGetterLambda().Invoke(entity);
+                return value.GetAsValue();
+            }
             if (Type == typeof(Guid))
             {
-                var guidValue = PropertyInfo.GenerateGuidGetterLambda().Invoke(entity);
-                return guidValue.GetAsValue();
+                var value = PropertyInfo.GenerateGuidGetterLambda().Invoke(entity);
+                return value.GetAsValue();
             }
+            if (Type == typeof(Guid?))
+            {
+                var value = PropertyInfo.GenerateNullableGuidGetterLambda().Invoke(entity);
+                return value.GetAsValue();
+            }
+
 
             if (Type == typeof(DateTime))
             {
-                var dateTimeValue = PropertyInfo.GenerateDateTimeGetterLambda().Invoke(entity);
-                return dateTimeValue.GetAsValue();
+                var value = PropertyInfo.GenerateDateTimeGetterLambda().Invoke(entity);
+                return value.GetAsValue();
+            }
+            if (Type == typeof(DateTime?))
+            {
+                var value = PropertyInfo.GenerateNullableDateTimeGetterLambda().Invoke(entity);
+                return value.GetAsValue();
             }
 
+            if (Type == typeof(DateTimeOffset))
+            {
+                var value = PropertyInfo.GenerateDateTimeOffsetGetterLambda().Invoke(entity);
+                return value.GetAsValue();
+            }
+            if (Type == typeof(DateTimeOffset?))
+            {
+                var value = PropertyInfo.GenerateNullableDateTimeOffsetGetterLambda().Invoke(entity);
+                return value.GetAsValue();
+            }
 
-            var value = PropertyInfo.GenerateGetterLambda().Invoke(entity);
+            var objectValue = PropertyInfo.GenerateGetterLambda().Invoke(entity);
 
-            return Value.Get(value);
+            return Value.Get(objectValue);
         }
 
 

@@ -13,7 +13,8 @@ namespace Dapper.Aerospike.Test
                 Id = LongExtensions.NextRandom(),
                 Number = "1",
                 Time = DateTime.Now,
-                PersonId = Guid.NewGuid()
+                PersonId = Guid.NewGuid(),
+                Amount = 1000
             };
 
         }
@@ -24,7 +25,8 @@ namespace Dapper.Aerospike.Test
                 Id = LongExtensions.NextRandom(),
                 Number = "2",
                 Time = DateTime.Now,
-                PersonId = Guid.NewGuid()
+                PersonId = Guid.NewGuid(),
+                Amount = 2000
             };
 
         }
@@ -34,5 +36,6 @@ namespace Dapper.Aerospike.Test
         public long Id { get; set; }
         public DateTime Time { get; set; }
         public string Number { get; set; }
+        public decimal Amount { get; set; }
     }
 }
