@@ -8,7 +8,7 @@
 
 [Aerospike](https://github.com/aerospike) is a distributed, scalable NoSQL database.
 
-And Dapper.Aerospike is fluent mapper that brings type safety and reducing some of the brittleness of the code.
+And Dapper.Aerospike is a fluent mapper that brings type safety and reducing some of the brittleness of the code.
 
 ## Installation
 Available for [.NET Standard 2.0+](https://docs.microsoft.com/en-gb/dotnet/standard/net-standard)
