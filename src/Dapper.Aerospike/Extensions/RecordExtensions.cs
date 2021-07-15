@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using Aerospike.Client;
 
 namespace Dapper.Aerospike
@@ -114,9 +116,27 @@ namespace Dapper.Aerospike
             return record.bins.ContainsKey(binName) ? record.GetByte(binName) : null;
         }
 
-        public static string GetString(this Record record, string binName)
+        public static string GetNullableString(this Record record, string binName)
         {
             return record.bins.ContainsKey(binName) ? record.GetString(binName) : null;
+        }
+        public static byte[] GetBytes(this Record record, string binName)
+        {
+            var list  = record.GetList(binName);
+            return list.Cast<byte>().ToArray();
+        }
+        public static byte[] GetNullableBytes(this Record record, string binName)
+        {
+            return record.bins.ContainsKey(binName) ? record.GetBytes(binName) : null;
+        }
+        public static IEnumerable<byte[]> GetBytesList(this Record record, string binName)
+        {
+            var list = record.GetList(binName);
+            return list.Cast<byte[]>().ToArray();
+        }
+        public static IEnumerable<byte[]> GetNullableBytesList(this Record record, string binName)
+        {
+            return record.bins.ContainsKey(binName) ? record.GetBytesList(binName) : null;
         }
     }
 }
