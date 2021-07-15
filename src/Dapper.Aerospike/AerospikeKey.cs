@@ -25,6 +25,55 @@ namespace Dapper.Aerospike
         }
 
 
+        public Key[] GetKeys(Guid[] keyValues)
+        {
+            Key[] keys = new Key[keyValues.Length];
+
+            for (var i = 0; i < keyValues.Length; i++)
+            {
+                keys[i] = new Key(_namespace, _setName, keyValues[i].GetAsValue());
+            }
+
+            return keys;
+        }
+
+        public Key[] GetKeys(DateTime[] keyValues)
+        {
+            Key[] keys = new Key[keyValues.Length];
+
+            for (var i = 0; i < keyValues.Length; i++)
+            {
+               keys[i] = new Key(_namespace, _setName, keyValues[i].GetAsValue());
+            }
+
+            return keys;
+        }
+
+        public Key[] GetKeys(long[] keyValues)
+        {
+            var keys = new Key[keyValues.Length];
+            for (var i = 0; i < keyValues.Length; i++)
+            {
+                keys[i] = new Key(_namespace, _setName, Value.Get(keyValues[i]));
+            }
+
+            return keys;
+
+        }
+
+        public Key[] GetKeys(object[] keyValues)
+        {
+            var keys = new Key[keyValues.Length];
+            for (var i = 0; i < keyValues.Length; i++)
+            {
+               keys[i] = new Key(_namespace, _setName, Value.Get(keyValues[i]));
+            }
+
+            return keys;
+
+        }
+
+
         public Key GetKey(Guid keyValue)
         {
             return new Key(_namespace, _setName, keyValue.GetAsValue());

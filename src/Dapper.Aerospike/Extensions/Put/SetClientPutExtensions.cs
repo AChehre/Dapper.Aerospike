@@ -4,21 +4,22 @@ using Aerospike.Client;
 
 namespace Dapper.Aerospike
 {
-    public static class SetClientAddExtensions
+    public static class SetClientPutExtensions
     {
-        public static Task Add<TEntity>(this ISet<TEntity> set,
+        public static Task Put<TEntity>(this ISet<TEntity> set,
                                         TEntity entity,
                                         CancellationToken token)
         {
-            var bins = set.GetBins(entity);
-            return set.Client.Add(new WritePolicy(), token, set.Key(entity), bins);
+            return set.Client.Put(new WritePolicy(), token, set.Key(entity), set.GetBins(entity));
         }
-        public static Task Add<TEntity>(this ISet<TEntity> set,
+
+        public static Task Put<TEntity>(this ISet<TEntity> set,
                                         WritePolicy writePolicy,
                                         TEntity entity,
                                         CancellationToken token)
         {
-            return set.Client.Add(writePolicy, token, set.Key(entity), set.GetBins(entity));
+            return set.Client.Put(writePolicy, token, set.Key(entity), set.GetBins(entity));
         }
+       
     }
 }

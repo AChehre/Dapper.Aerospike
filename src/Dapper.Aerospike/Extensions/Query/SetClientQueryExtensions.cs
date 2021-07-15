@@ -6,13 +6,7 @@ namespace Dapper.Aerospike
 {
     public static class SetClientQueryExtensions
     {
-        public static Task<List<TEntity>> Query<TEntity>(this ISet<TEntity> set)
-        {
-            return set.Query(new QueryPolicy());
-        }
-
-
-        public static Task<List<TEntity>> Query<TEntity>(this ISet<TEntity> set,
+       public static Task<List<TEntity>> Query<TEntity>(this ISet<TEntity> set,
                                                          QueryPolicy queryPolicy)
         {
             var entities = new List<TEntity>();
